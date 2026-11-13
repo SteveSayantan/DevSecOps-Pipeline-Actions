@@ -23,7 +23,7 @@ jobs:
         ports:
           - 27017:27017
         env:
-          MONGO_INITDB_ROOT_USERNAME: ${{ env.DB_ROOT_USER }}
+          MONGO_INITDB_ROOT_USERNAME: ${{ vars.DB_ROOT_USER }}
           MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.DB_ROOT_PASS }}
         options: >-
           --health-cmd "mongosh --username $MONGO_INITDB_ROOT_USERNAME --password $MONGO_INITDB_ROOT_PASSWORD --eval 'db.runCommand({ ping: 1 })' --quiet"
@@ -61,11 +61,11 @@ jobs:
 
       - name: Create Test Database and Restricted User
         env:
-          ROOT_MONGO_USER: ${{ env.DB_ROOT_USER }}
+          ROOT_MONGO_USER: ${{ vars.DB_ROOT_USER }}
           ROOT_MONGO_PASS: ${{ secrets.DB_ROOT_PASS }}
-          APP_MONGO_USER: ${{ env.DB_APP_USER }}
+          APP_MONGO_USER: ${{ vars.DB_APP_USER }}
           APP_MONGO_PASS: ${{ secrets.DB_APP_PASS }}
-          APP_MONGO_DB: ${{ env.DB_APP_NAME }}
+          APP_MONGO_DB: ${{ vars.DB_APP_NAME }}
         run: |
           mongosh "mongodb://$ROOT_MONGO_USER:$ROOT_MONGO_PASS@localhost:27017/admin" --eval '
             const appDbName = process.env.APP_MONGO_DB;
@@ -81,9 +81,9 @@ jobs:
         env:
           REDIS_HOST: localhost
           MONGO_HOST: localhost
-          APP_MONGO_USER: ${{ env.DB_APP_USER }}
+          APP_MONGO_USER: ${{ vars.DB_APP_USER }}
           APP_MONGO_PASS: ${{ secrets.DB_APP_PASS }}
-          APP_MONGO_DB: ${{ env.DB_APP_NAME }}
+          APP_MONGO_DB: ${{ vars.DB_APP_NAME }}
 
 
       - name: Upload Coverage Artifact
