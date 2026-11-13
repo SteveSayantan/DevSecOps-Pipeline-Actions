@@ -54,10 +54,10 @@ jobs:
           # There is another property called `package-manager-cache`. It is useful when when the root package.json declares a package manager (e.g., npm). In that case we don't need to specify `cache: npm` explicitly, as the detection of the package manager and caching will be handled automatically.
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm ci --prefix=backend/
 
       - name: Run Dependency Scan
-        run: npm audit --omit=dev --audit-level=high
+        run: npm audit --omit=dev --audit-level=high --prefix=backend/
 
       - name: Create Test Database and Restricted User
         env:
@@ -77,7 +77,7 @@ jobs:
             });'
 
       - name: Run Tests with Coverage
-        run: npm run test:ci
+        run: npm run test:ci --prefix=backend/
         env:
           REDIS_HOST: localhost
           MONGO_HOST: localhost
@@ -94,4 +94,4 @@ jobs:
           if-no-files-found: error
 
       - name: Build
-        run: npm run build
+        run: npm run build --prefix=backend/
