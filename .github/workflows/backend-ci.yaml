@@ -97,6 +97,8 @@ jobs:
           ACCESS_TOKEN_EXPIRES_IN: ${{ vars.ACCESS_TOKEN_EXPIRES_IN }}
           REFRESH_COOKIE_MAXAGE: ${{ vars.REFRESH_COOKIE_MAXAGE }}
           REFRESH_TOKEN_EXPIRES_IN: ${{ vars.REFRESH_TOKEN_EXPIRES_IN }}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+          GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
 
 
       - name: Upload Coverage Artifact
