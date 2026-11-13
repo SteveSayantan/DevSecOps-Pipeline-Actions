@@ -91,6 +91,12 @@ jobs:
           APP_MONGO_USER: ${{ vars.DB_APP_USER }}
           APP_MONGO_PASS: ${{ secrets.DB_APP_PASS }}
           APP_MONGO_DB: ${{ vars.DB_APP_NAME }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+          NODE_ENV: ${{ vars.NODE_ENV }}
+          ACCESS_COOKIE_MAXAGE: ${{ vars.ACCESS_COOKIE_MAXAGE }}
+          ACCESS_TOKEN_EXPIRES_IN: ${{ vars.ACCESS_TOKEN_EXPIRES_IN }}
+          REFRESH_COOKIE_MAXAGE: ${{ vars.REFRESH_COOKIE_MAXAGE }}
+          REFRESH_TOKEN_EXPIRES_IN: ${{ vars.REFRESH_TOKEN_EXPIRES_IN }}
 
 
       - name: Upload Coverage Artifact
