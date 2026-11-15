@@ -132,7 +132,7 @@ jobs:
         with:
           # This is the base name of the image to be built and pushed
           images: |
-            ${{ vars.DOCKER_REGISTRY }}/backend
+            ${{ vars.DOCKER_REGISTRY }}
           # This is the tag to be assigned to the image. The `prefix` is set to an empty string, so the tag will be just the short SHA without any prefix (e.g., `abcd1234` instead of `sha-abcd1234`).
           tags: |
             type=sha,prefix=
