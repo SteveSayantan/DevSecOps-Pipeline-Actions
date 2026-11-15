@@ -110,3 +110,34 @@ jobs:
 
       - name: Build
         run: npm run build --prefix=backend/
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v6.3.0
+        with:
+          role-to-assume: arn:aws:iam::992382841893:role/Push_Image
+          aws-region: us-east-1
+      
+      - name: Log in to ECR
+        # Once the job is over, this action will log out from the registry automatically as the `logout` input is set to `true` by default.
+        uses: docker/login-action@v4
+        with:
+          registry: 992382841893.dkr.ecr.us-east-1.amazonaws.com
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        # This action determines which tags and labels should be assigned to the Docker image
+        uses: docker/metadata-action@v6
+        with:
+          # This is the base name of the image to be built and pushed
+          images: |
+            ${{ vars.DOCKER_REGISTRY }}/backend
+          # This is the tag to be assigned to the image. The `prefix` is set to an empty string, so the tag will be just the short SHA without any prefix (e.g., `abcd1234` instead of `sha-abcd1234`).
+          tags: |
+            type=sha,prefix=
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
